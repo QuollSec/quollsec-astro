@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://quollsec.com',
+  base: '/',
   output: 'static',
   integrations: [mdx()],
 });
