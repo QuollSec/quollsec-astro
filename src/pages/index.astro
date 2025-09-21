@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import QuollFlyout from '../components/QuollFlyout.astro';
 import { getCollection } from 'astro:content';
+import "../styles/global.css";
 const posts = await getCollection('posts');
 
 const url = new URL(Astro.request.url);
@@ -30,7 +31,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
 
 <BaseLayout title="QuollSec">
 <div class="logo-banner">
-  <img src={`${import.meta.env.BASE_URL}images/quollsec-logo-large.png`} alt="QuollSec logo" class="fade-in logo-image constrained-logo" />
+  <img src={`/images/quollsec_logo_transparent.png`} alt="QuollSec logo" class="fade-in logo-image constrained-logo" />
 </div>
 <div class="quoll-flyout-wrapper">
   <QuollFlyout />
