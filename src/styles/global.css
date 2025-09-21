@@ -1,0 +1,235 @@
+:root {
+  --black: #0e0e11;
+  --yellow: #f2d13d;
+  --white: #f5f5f5;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  font-family: var(--font-sans);
+  color: var(--white);
+}
+
+a {
+  text-decoration: none;
+  color: inherit; /* optional: makes links inherit surrounding text colour */
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.tile {
+  padding: 1.5rem;
+  background: var(--black);
+  border: 1px solid #333;
+  color: var(--white);
+  font-family: var(--font-mono);
+  transition: transform 0.2s ease-in-out;
+  min-height: 100px; /* Add this line */
+}
+
+.tile:hover {
+  transform: scale(1.03);
+  z-index: 1;
+}
+
+.tile-yellow {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.tile h2 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tile h3 {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin: 0;
+}
+
+.tile p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.current-state {
+  position: sticky;
+  top: 2rem;
+  right: 2rem;
+  max-width: 300px;
+  background: var(--black);
+  color: var(--yellow);
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  border: 1px solid #444;
+  align-self: start;
+  z-index: 10;
+}
+
+.current-state h4 {
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #9cdcfe; /* or something closer to your yellow, if you want stronger emphasis */
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s ease;
+}
+
+nav a:hover {
+  border-color: #f9e552; /* highlight on hover */
+}
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.quoll-icon-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.quoll-icon {
+  width: 92px;
+  height: 92px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.quoll-icon:hover {
+  transform: rotateZ(10deg) scale(1.1);
+}
+
+.status-panel {
+  background: #1e1e1e;
+  color: #eee;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: 'IBM Plex Mono', monospace;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.quoll-flyout-wrapper {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
+}
+
+.quoll-icon-container:hover .status-panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quoll-icon:hover #right-eye {
+  animation: wink-eye 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.quoll-icon:hover #mouth {
+  animation: cheeky-smile 0.5s ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes wink-eye {
+  0%   { transform: scaleY(1); }
+  50%  { transform: scaleY(0.1); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes cheeky-smile {
+  0%   { transform: rotate(0deg) scaleX(1); }
+  50%  { transform: rotate(-10deg) scaleX(1.1); }
+  100% { transform: rotate(0deg) scaleX(1); }
+}
+
+.main-content {
+  padding-top: 80px; /* Adjust based on icon + flyout size */
+}
+.logo-banner {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: -60px; /* Adjust to visually overlap nicely with padding */
+  font-family: monospace;
+  color: #fff;
+}
+
+.logo-banner h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.logo-banner .tagline {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.constrained-logo {
+  max-width: 300px; /* or whatever width fits your design */
+  height: auto;     /* maintain aspect ratio */
+  object-fit: contain; /* or 'cover' if you want cropping */
+  display: block;
+  margin: 0 auto;    /* optional: center the image */
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0; /* So it's invisible until animated */
+}
+
+.fade-delay-1 { animation-delay: 0.1s; }
+.fade-delay-2 { animation-delay: 0.2s; }
+.fade-delay-3 { animation-delay: 0.3s; }
+.fade-delay-4 { animation-delay: 0.4s; }
+.fade-delay-5 { animation-delay: 0.5s; }
+.fade-delay-6 { animation-delay: 0.6s; }

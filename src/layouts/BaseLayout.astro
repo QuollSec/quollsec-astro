@@ -1,0 +1,24 @@
+---
+import QuollFlyout from '../components/QuollFlyout.astro';
+import Footer from '../components/Footer.astro';
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title ? `${title} | QuollSec` : 'QuollSec'}</title>
+    <link rel="stylesheet" href={`${import.meta.env.BASE_URL}src/styles/global.css`} />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+  </head>
+  <body>
+  
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main>
+        <slot />
+        <Footer />
+      </main>
+    </div>
+  </body>
+</html>

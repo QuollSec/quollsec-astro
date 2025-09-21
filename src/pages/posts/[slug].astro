@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntryBySlug } from 'astro:content';
+import Layout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug('posts', slug);
+
+if (!post) {
+  throw new Error(`Post not found for slug: ${slug}`);
+}
+
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+<article>
+  <h1>{post.data.title}</h1>
+  {post.data.date && (
+    <p class="post-date">{post.data.date.toDateString()}</p>
+  )}
+
+  <Content />
+</article>
+</Layout>

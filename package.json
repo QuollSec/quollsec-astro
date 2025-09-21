@@ -1,0 +1,17 @@
+{
+  "name": "quollsec-astro",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && npx gh-pages -d dist"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.4",
+    "astro": "^5.13.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}

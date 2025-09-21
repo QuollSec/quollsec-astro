@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuollFlyout from '../components/QuollFlyout.astro';
+import { getCollection } from 'astro:content';
+const posts = await getCollection('posts');
+
+const url = new URL(Astro.request.url);
+const selectedTag = url.searchParams.get("tag");
+
+const filteredPosts = selectedTag
+  ? posts.filter(post => post.data.tags?.includes(selectedTag))
+  : posts;
+
+const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
+---
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const filter = document.getElementById('category-filter');
+    const articles = document.querySelectorAll('[data-category]');
+
+    filter.addEventListener('change', () => {
+      const selected = filter.value;
+      articles.forEach(article => {
+        const category = article.dataset.category;
+        article.style.display = (selected === 'All' || category === selected) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<BaseLayout title="QuollSec">
+<div class="logo-banner">
+  <img src={`${import.meta.env.BASE_URL}images/quollsec-logo-large.png`} alt="QuollSec logo" class="fade-in logo-image constrained-logo" />
+</div>
+<div class="quoll-flyout-wrapper">
+  <QuollFlyout />
+</div>
+  <div class="main-content">
+  <div class="flex items-center justify-start mb-2 ml-4">
+    <label for="category-filter" class="mr-2 text-white">Filter by category:</label>
+    <select id="category-filter" class="bg-gray-800 text-white border border-gray-600 rounded px-1 py-0.5">
+      <option>All</option>
+      <option>AI</option>
+      <option>Music</option>s
+      <option>Books</option>
+      <option>Labs</option>
+      <option>Home Assistant</option>
+    </select>
+  </div>
+
+  <section class="grid">
+    {filteredPosts.map((post, i) => (
+      <a 
+        href={`${import.meta.env.BASE_URL}posts/${post.slug}`} 
+        class={`tile fade-in fade-delay-${i + 1}`}
+        data-category={post.data.category}
+      >
+        {post.data.category ? <h3>{post.data.category}</h3> : null}
+        <h2>{post.data.title}</h2>
+        <p>{post.data.description}</p>
+      </a>
+    ))}
+
+  </section>
+  </div>
+
+</BaseLayout>
