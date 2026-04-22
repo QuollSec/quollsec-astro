@@ -2,17 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import QuollFlyout from '../components/QuollFlyout.astro';
 import { getCollection } from 'astro:content';
-import "../styles/global.css";
 const posts = await getCollection('posts');
-
-const url = new URL(Astro.request.url);
-const selectedTag = url.searchParams.get("tag");
-
-const filteredPosts = selectedTag
-  ? posts.filter(post => post.data.tags?.includes(selectedTag))
-  : posts;
-
-const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
 ---
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
@@ -42,7 +32,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
     <select id="category-filter" class="bg-gray-800 text-white border border-gray-600 rounded px-1 py-0.5">
       <option>All</option>
       <option>AI</option>
-      <option>Music</option>s
+      <option>Music</option>
       <option>Books</option>
       <option>Labs</option>
       <option>Home Assistant</option>
@@ -50,10 +40,10 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
   </div>
 
   <section class="grid">
-    {filteredPosts.map((post, i) => (
-      <a 
-        href={`${import.meta.env.BASE_URL}posts/${post.slug}`} 
-        class={`tile fade-in fade-delay-${i + 1}`}
+    {posts.map((post, i) => (
+      <a
+        href={`${import.meta.env.BASE_URL}posts/${post.slug}`}
+        class={`tile fade-in fade-delay-${Math.min(i + 1, 6)}`}
         data-category={post.data.category}
       >
         {post.data.category ? <h3>{post.data.category}</h3> : null}

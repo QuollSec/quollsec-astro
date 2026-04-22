@@ -2,7 +2,7 @@
   --black: #0e0e11;
   --yellow: #f2d13d;
   --white: #f5f5f5;
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
 
@@ -15,7 +15,7 @@ body {
 
 a {
   text-decoration: none;
-  color: inherit; /* optional: makes links inherit surrounding text colour */
+  color: inherit;
 }
 
 a:hover {
@@ -29,6 +29,14 @@ a:hover {
   padding: 2rem;
 }
 
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
 .tile {
   padding: 1.5rem;
   background: var(--black);
@@ -36,7 +44,7 @@ a:hover {
   color: var(--white);
   font-family: var(--font-mono);
   transition: transform 0.2s ease-in-out;
-  min-height: 100px; /* Add this line */
+  min-height: 100px;
 }
 
 .tile:hover {
@@ -67,27 +75,6 @@ a:hover {
   font-size: 0.9rem;
 }
 
-.current-state {
-  position: sticky;
-  top: 2rem;
-  right: 2rem;
-  max-width: 300px;
-  background: var(--black);
-  color: var(--yellow);
-  padding: 1.5rem;
-  font-family: var(--font-mono);
-  border: 1px solid #444;
-  align-self: start;
-  z-index: 10;
-}
-
-.current-state h4 {
-  font-size: 0.9rem;
-  margin: 0 0 1rem 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 nav {
   display: flex;
   gap: 1rem;
@@ -98,53 +85,13 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #9cdcfe; /* or something closer to your yellow, if you want stronger emphasis */
+  color: #9cdcfe;
   border-bottom: 1px dashed transparent;
   transition: border-color 0.2s ease;
 }
 
 nav a:hover {
-  border-color: #f9e552; /* highlight on hover */
-}
-
-.page-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.quoll-icon-container {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.quoll-icon {
-  width: 92px;
-  height: 92px;
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
-}
-
-.quoll-icon:hover {
-  transform: rotateZ(10deg) scale(1.1);
-}
-
-.status-panel {
-  background: #1e1e1e;
-  color: #eee;
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-family: 'IBM Plex Mono', monospace;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.2s ease-in-out;
-  pointer-events: none;
+  border-color: #f9e552;
 }
 
 .quoll-flyout-wrapper {
@@ -154,40 +101,14 @@ nav a:hover {
   z-index: 999;
 }
 
-.quoll-icon-container:hover .status-panel {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.quoll-icon:hover #right-eye {
-  animation: wink-eye 0.3s ease-in-out;
-  transform-origin: center;
-}
-
-.quoll-icon:hover #mouth {
-  animation: cheeky-smile 0.5s ease-in-out;
-  transform-origin: center;
-}
-
-@keyframes wink-eye {
-  0%   { transform: scaleY(1); }
-  50%  { transform: scaleY(0.1); }
-  100% { transform: scaleY(1); }
-}
-
-@keyframes cheeky-smile {
-  0%   { transform: rotate(0deg) scaleX(1); }
-  50%  { transform: rotate(-10deg) scaleX(1.1); }
-  100% { transform: rotate(0deg) scaleX(1); }
-}
-
 .main-content {
-  padding-top: 80px; /* Adjust based on icon + flyout size */
+  padding-top: 80px;
 }
+
 .logo-banner {
   text-align: center;
   margin-top: 20px;
-  margin-bottom: -60px; /* Adjust to visually overlap nicely with padding */
+  margin-bottom: -60px;
   font-family: monospace;
   color: #fff;
 }
@@ -204,11 +125,11 @@ nav a:hover {
 }
 
 .constrained-logo {
-  max-width: 300px; /* or whatever width fits your design */
-  height: auto;     /* maintain aspect ratio */
-  object-fit: contain; /* or 'cover' if you want cropping */
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
   display: block;
-  margin: 0 auto;    /* optional: center the image */
+  margin: 0 auto;
 }
 
 @keyframes fadeInUp {
@@ -224,7 +145,7 @@ nav a:hover {
 
 .fade-in {
   animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0; /* So it's invisible until animated */
+  opacity: 0;
 }
 
 .fade-delay-1 { animation-delay: 0.1s; }

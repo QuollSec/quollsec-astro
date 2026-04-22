@@ -16,16 +16,17 @@ const icons = [
     padding: 1rem;
     z-index: 1000;
   }
-.quoll-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%; /* Optional: remove this if you want a square or custom shape */
-  background: url('/images/quoll-hover.svg') center/cover no-repeat;
-  /* border: 2px solid #fff; */ /* comment this out or remove */
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-}
+
+  .quoll-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: url('/images/quoll-hover.svg') center/cover no-repeat;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+
   .status-icon {
     position: absolute;
     width: 40px;
@@ -43,10 +44,12 @@ const icons = [
     transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 1;
   }
+
   .status-icon span {
     color: #000;
     font-size: 14px;
   }
+
   .quoll-container.active .status-icon {
     opacity: 1;
     pointer-events: auto;
@@ -54,14 +57,15 @@ const icons = [
   }
 </style>
 
-<div class="quoll-container" onclick="this.classList.toggle('active')">
+<div class="quoll-container">
   <div class="quoll-icon"></div>
   {icons.map((icon) => (
     <a class="status-icon" href={icon.href}><span>{icon.emoji}</span></a>
   ))}
 </div>
 
-<script is:inline>
+<script>
+  const container = document.querySelector('.quoll-container');
   const icons = document.querySelectorAll('.status-icon');
   const radius = 90;
   const startAngle = 190;
@@ -73,7 +77,9 @@ const icons = [
     const angleRad = angleDeg * (Math.PI / 180);
     const x = radius * Math.cos(angleRad);
     const y = radius * Math.sin(angleRad);
-    icon.style.setProperty('--x', `${x}px`);
-    icon.style.setProperty('--y', `${y}px`);
+    (icon as HTMLElement).style.setProperty('--x', `${x}px`);
+    (icon as HTMLElement).style.setProperty('--y', `${y}px`);
   });
+
+  container?.addEventListener('click', () => container.classList.toggle('active'));
 </script>
